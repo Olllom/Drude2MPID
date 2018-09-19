@@ -146,7 +146,7 @@ def comp_aniso(a):
                 elif a.lonepairs[0][5].lower().startswith('bise'):
                     str0=' BISECT '+a.lonepairs[0][1]+' '+a.lonepairs[0][2]+' '+a.lonepairs[0][3]
                 else:
-                    print 'unsupport lonepair type', a.anisotropy, a.lonepairs
+                    print('unsupport lonepair type', a.anisotropy, a.lonepairs)
             elif numeq(pos1[0],pos2[0]) and numeq(pos1[2],pos2[2]) and a.lonepairs[0][1]==a.lonepairs[1][1] and a.lonepairs[0][2]==a.lonepairs[1][2] and a.lonepairs[0][3]==a.lonepairs[1][3] and a.lonepairs[0][5]==a.lonepairs[1][5]:
                 if a.lonepairs[0][5].lower().startswith('rela'):
                     str0=' ZX '+a.lonepairs[0][1]+' '+a.lonepairs[0][2]+' '+a.lonepairs[0][3]
@@ -155,9 +155,9 @@ def comp_aniso(a):
                     a11=a22
                     a22=aexch
                 else:
-                    print 'unsupport lonepair type', a.anisotropy, a.lonepairs
+                    print('unsupport lonepair type', a.anisotropy, a.lonepairs)
             else:
-                print 'unsupport anisotropic polarizability', a.anisotropy, a.lonepairs
+                print('unsupport anisotropic polarizability', a.anisotropy, a.lonepairs)
         elif a.lonepairs[0][0] not in a.anisotropy[1:4] and a.lonepairs[1][0] not in a.anisotropy[1:4]:  # in the case no lonepair is used in defining anisotropy
             str0=' ZBISECT '+a.anisotropy[1]+' '+a.anisotropy[2]+' '+a.anisotropy[3]
     elif nlp==1:
@@ -166,7 +166,7 @@ def comp_aniso(a):
         if numeqloose(pos1[0],0.0) and numeqloose(pos1[1],0.0) and a.lonepairs[0][0] == a.anisotropy[1] and a.lonepairs[0][5]:
             str0=' BISECT '+a.lonepairs[0][1]+' '+a.lonepairs[0][2]+' '+a.lonepairs[0][3]
         else:
-            print 'unsupport lonepair type', a.anisotropy, a.lonepairs
+            print('unsupport lonepair type', a.anisotropy, a.lonepairs)
     elif nlp==0:
         str0=' ZBISECT '+a.anisotropy[1]+' '+a.anisotropy[2]+' '+a.anisotropy[3]
     elif nlp==3:
@@ -179,12 +179,12 @@ def comp_aniso(a):
             pos1=lppos(a.lonepairs[0][6],a.lonepairs[0][7],a.lonepairs[0][8])
             pos2=lppos(a.lonepairs[1][6],a.lonepairs[1][7],a.lonepairs[1][8])
             pos3=lppos(a.lonepairs[2][6],a.lonepairs[2][7],a.lonepairs[2][8])
-            print a.anisotropy, a.lonepairs
-            print pos1, pos2, pos3
+            print(a.anisotropy, a.lonepairs)
+            print(pos1, pos2, pos3)
             str0='  BISECT    '+a.lonepairs[0][1]+' '+a.lonepairs[0][2]+' '+a.lonepairs[0][3]
 
     else:
-        print 'unsupport anisotropic polarizability:', nlp, 'lonepairs'
+        print('unsupport anisotropic polarizability:', nlp, 'lonepairs')
 
     a.printaniso=str0+' '+str(a33)+' '+str(a22)+' '+str(a11)
 
@@ -207,7 +207,7 @@ def lp_to_mpole(a):
             q, coor, str0 = multipole2(a)
         else:
 	    q, coor, str0 = multipole3(a)
-            print a.lonepairs
+            print(a.lonepairs)
 
     #convert A to Bohr so that the results are all in a.u. 
     for ci in coor:
@@ -235,7 +235,7 @@ def multipole1(a):
         coor.append(lppos(a.lonepairs[0][6],a.lonepairs[0][7],a.lonepairs[0][8]))
         octstr='OPOLE '+a.name+'  BISECT  '+a.lonepairs[0][1]+' '+a.lonepairs[0][2]+' '+a.lonepairs[0][3]+' -'
     else: 
-        print "lonepair types/combinations not supported", a.lonepairs
+        print("lonepair types/combinations not supported", a.lonepairs)
 
     return q, coor, octstr
 
@@ -253,7 +253,7 @@ def multipole2(a):
         a.lonepairs[1][8] = 180.0 - a.lonepairs[1][8]
         octstr='OPOLE '+a.name+'  BISECT  '+a.lonepairs[0][1]+' '+a.lonepairs[0][2]+' '+a.lonepairs[0][3]+' -'
     else:
-        print "lonepair types/combinations not supported!", a.lonepairs #sys.exit("lonepair types/combinations not supported!")
+        print("lonepair types/combinations not supported!", a.lonepairs) #sys.exit("lonepair types/combinations not supported!")
     q=[a.charge, a.lonepairs[0][4], a.lonepairs[1][4]]
     coor=[[0.0,0.0,0.0]]
     coor.append(lppos(a.lonepairs[0][6],a.lonepairs[0][7],a.lonepairs[0][8]))
@@ -362,7 +362,7 @@ if __name__ == "__main__":
 
 
     inputfile=sys.argv[1]
-    print "* convert Drude topology file "+inputfile+" to MPID."
+    print("* convert Drude topology file "+inputfile+" to MPID.")
     for line in open(inputfile):
         fields = line.split()
         if line[0:4]== 'RESI':
@@ -372,10 +372,10 @@ if __name__ == "__main__":
         elif line[0:4]== 'PRES': # mpole currently doesn't support patch
             section = 2
         elif line[0:35]=='AUTOGENERATE ANGLES DIHEDRALS DRUDE':
-            print 'AUTOGENERATE ANGLES DIHEDRALS MPOLE'
+            print('AUTOGENERATE ANGLES DIHEDRALS MPOLE')
         else:
             if section == 0:
-                print line,
+                print(line, end=' ')
             elif section == 1: # process one residue
                 if len(fields) == 0:
                     continue
@@ -434,54 +434,54 @@ if __name__ == "__main__":
                 comp_aniso(a)
 
     for r in residues:
-        print 'RESI ', r.name, r.charge
+        print('RESI ', r.name, r.charge)
 
         #print out the atom with group information
         aindex=0
         for a in r.atoms:
             if aindex in r.group:
-                print 'GROUP'
-            print 'ATOM ', a.name, a.atomClass, a.charge
+                print('GROUP')
+            print('ATOM ', a.name, a.atomClass, a.charge)
             aindex += 1
-        print
+        print()
 
         #print out polarizability
         for a in r.atoms:
             if a.polarizable:
                 if a.anisotropic:
-                    print 'APOLARIZE', a.name, a.printaniso, a.thole
+                    print('APOLARIZE', a.name, a.printaniso, a.thole)
                 else:
-                    print 'POLARIZE', a.name, a.alpha, a.thole
-        print
+                    print('POLARIZE', a.name, a.alpha, a.thole)
+        print()
 
         #print out the bond
         for b in r.bonds:
-            print 'BOND ', b[0], b[1]
-        print
+            print('BOND ', b[0], b[1])
+        print()
 
         #print out the IMPR and CMAP part
         for info in r.impr:
-            print info,
+            print(info, end=' ')
         for info in r.cmap:
-            print info,
-        print
+            print(info, end=' ')
+        print()
 
         #print out multipole
         for a in r.atoms:
             if a.haslonepair:
             # map atoms with lonepairs into octpole
-                print a.printmpole
-        print
+                print(a.printmpole)
+        print()
 
         # print out IC table and patch information
         for info in r.donor:
-            print info,
+            print(info, end=' ')
         #for info in r.ic: # ignore IC table as some IC such as the one in SWM4 water, has lonepairs in it
         #    print info,
         for info in r.patch:
-            print info,
-        print
+            print(info, end=' ')
+        print()
 
-    print 'end'
+    print('end')
 
 
